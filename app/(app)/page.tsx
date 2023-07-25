@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useChat } from "ai/react";
 
-import { LogInButton, SignUpButton } from "../components/Buttons";
+import { LogInLink, SignUpLink } from "../components/Buttons";
 import { Input, TextArea } from "../components/Inputs";
 
 export default function Home() {
@@ -29,8 +29,9 @@ export default function Home() {
             </h1>
 
             <p className="font-inter md:text-base text-neutral-400 max-w-[65ch] font-light md:leading-5 text-sm leading-4">
-              Enter the details about the job you want to apply to below and get
-              a personnalised AI generated cover letter.
+              Welcome to the future of cover letters – where AI empowers you to
+              create compelling and tailored cover letters for any job offer
+              effortlessly
             </p>
           </div>
 
@@ -41,14 +42,15 @@ export default function Home() {
             </h3>
 
             <div className="flex gap-2">
-              <LogInButton />
-              <SignUpButton />
+              <LogInLink />
+              <SignUpLink />
             </div>
           </div>
 
           <div className="flex items-center self-center w-full flex-col gap-y-4 md:max-w-[85%]">
             <Input
               id="company-name"
+              type="text"
               label="Company Name"
               placeholder="Celestial Colonizers"
               value={companyName}
@@ -58,6 +60,7 @@ export default function Home() {
 
             <Input
               id="job-title"
+              type="text"
               label="Job Title"
               placeholder="Mars Colonization Volunteer"
               value={jobTitle}

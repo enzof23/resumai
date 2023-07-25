@@ -4,22 +4,42 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseClient } from "@/supabase/client";
 
-const baseStyles =
-  "border-[2px] grid place-items-center max-w-fit px-3 py-1 rounded-md font-semibold text-xs text-neutral-300 border-neutral-300 md:hover:text-neutral-50 md:hover:border-neutral-900 md:hover:bg-gradient-to-b md:hover:from-neutral-900 md:hover:to-neutral-800 duration-300";
+const buttonBaseStyle =
+  "border-[2px] grid place-items-center rounded-md md:hover:text-neutral-50 duration-300";
 
-export function LogInButton() {
+const linkBaseStyle =
+  "max-w-fit px-3 py-1 text-xs text-neutral-200 font-semibold border-neutral-300 md:hover:border-neutral-900 md:hover:bg-gradient-to-b md:hover:from-neutral-900 md:hover:to-neutral-800 ";
+
+export function LogInLink() {
   return (
-    <Link href={"/connexion?auth=login"} className={baseStyles}>
+    <Link
+      href={"/connexion?auth=login"}
+      className={`${buttonBaseStyle} ${linkBaseStyle}`}
+    >
       LOG IN
     </Link>
   );
 }
 
-export function SignUpButton() {
+export function SignUpLink() {
   return (
-    <Link href={"/connexion?auth=signup"} className={baseStyles}>
+    <Link
+      href={"/connexion?auth=signup"}
+      className={`${buttonBaseStyle} ${linkBaseStyle}`}
+    >
       SIGN UP
     </Link>
+  );
+}
+
+export function AuthButton({ text }: { text: string }) {
+  return (
+    <button
+      className={`${buttonBaseStyle} capitalize w-full py-2 text-neutral-200 font-medium border-neutral-200 md:hover:border-neutral-800 md:hover:bg-gradient-to-b md:hover:from-neutral-500 md:hover:to-neutral-700/50`}
+      type="submit"
+    >
+      {text}
+    </button>
   );
 }
 
@@ -33,7 +53,7 @@ export function SignOutButton() {
   };
 
   return (
-    <button onClick={handleSignOut} className={baseStyles}>
+    <button onClick={handleSignOut} className={buttonBaseStyle}>
       SIGN OUT
     </button>
   );
@@ -41,7 +61,7 @@ export function SignOutButton() {
 
 export function ProfileLink() {
   return (
-    <Link href={"/profile"} className={baseStyles}>
+    <Link href={"/profile"} className={buttonBaseStyle}>
       PROFILE
     </Link>
   );

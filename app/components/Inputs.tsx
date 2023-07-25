@@ -2,15 +2,16 @@ import { ChangeEvent, Dispatch, SetStateAction } from "react";
 
 type BaseProps = {
   id: string;
+  type?: "text" | "email" | "password";
   label: string;
   placeholder?: string;
-  value: string;
+  value?: string;
   required?: boolean;
   disabled?: boolean;
 };
 
 type InputProps = {
-  onChange: Dispatch<SetStateAction<string>>;
+  onChange?: Dispatch<SetStateAction<string>>;
 } & BaseProps;
 
 type TextAreaProps = {
@@ -27,7 +28,7 @@ function InputLabel(props: { id: string; label: string }) {
   return (
     <label
       htmlFor={props.id}
-      className="font-semibold leading-7 text-primary-20"
+      className="font-semibold capitalize leading-7 text-primary-20"
     >
       {props.label}
     </label>
@@ -41,11 +42,14 @@ export function Input({ ...props }: InputProps) {
 
       <input
         id={props.id}
-        type="text"
+        name={props.id}
+        type={props.type}
         placeholder={props.placeholder}
         value={props.value}
         required={props.required}
-        onChange={(e) => props.onChange(e.currentTarget.value)}
+        onChange={(e) =>
+          props.onChange && props.onChange(e.currentTarget.value)
+        }
         className="bg-neutral-900 outline-none duration-300 placeholder:text-sm md:placeholder:text-base px-2 rounded-lg w-full py-2 md:px-3 font-mono text-neutral-100 border-2 border-neutral-600 placeholder:text-neutral-600"
         onFocus={(event) => event.target.classList.add("gradient-outline")}
         onBlur={(event) => event.target.classList.remove("gradient-outline")}
