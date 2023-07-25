@@ -1,14 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import {
-  LogInButton,
-  SignUpButton,
-  SignOutButton,
-  ProfileLink,
-} from "./Buttons";
+
+import { LogInLink, SignUpLink } from "./Buttons";
 import Logo from "./Logo";
 
 export function DesktopNavbar() {
@@ -19,8 +14,8 @@ export function DesktopNavbar() {
       {/* Conditionnally render button based on auth context */}
 
       <div className="flex gap-x-3">
-        <LogInButton />
-        <SignUpButton />
+        <LogInLink />
+        <SignUpLink />
       </div>
 
       {/* <div className="flex gap-x-3">
@@ -88,8 +83,8 @@ export function MobileNavbar() {
           menuOpen ? "top-0" : "-top-[460px]"
         }`}
       >
-        <LogInButton />
-        <SignUpButton />
+        <LogInLink />
+        <SignUpLink />
       </div>
     </nav>
   );

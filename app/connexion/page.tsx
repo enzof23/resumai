@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 export default function ConnexionPage() {
   const searchParams = useSearchParams();
@@ -12,8 +13,8 @@ export default function ConnexionPage() {
   }
 
   if (auth === "signup") {
-    return <div>signup</div>;
+    return <Signup />;
   }
 
-  return <div>login</div>;
+  return <Login />;
 }
