@@ -37,7 +37,7 @@ export default function Login() {
       }
 
       router.refresh();
-      router.push("/");
+      // router.push("/");
       setLoader(false);
     } catch (error) {
       console.log(error);

@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { supabaseClient } from "@/supabase/client";
-import { HalfCircleSpinner } from "react-epic-spinners";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { HalfCircleSpinner } from "react-epic-spinners";
+
+import { supabaseClient } from "@/supabase/client";
 
 const buttonBaseStyle =
-  "border-[2px] min-w-[75px] grid place-items-center rounded-md md:hover:text-neutral-50 duration-300";
+  "grid place-items-center min-w-[75px] rounded-md duration-300 border-[2px] md:hover:text-neutral-50";
 
 const linkBaseStyle =
-  "max-w-fit px-3 py-1 text-xs text-neutral-200 font-semibold border-neutral-300 md:hover:border-neutral-900 md:hover:bg-gradient-to-b md:hover:from-neutral-900 md:hover:to-neutral-800 ";
+  "text-xs text-neutral-200 font-medium font-mono tracking-wide w-full px-3 py-2 border-neutral-300 sm:max-w-fit sm:py-1 md:hover:border-neutral-900 md:hover:bg-gradient-to-b md:hover:from-neutral-900 md:hover:to-neutral-800 ";
 
 export function LogInLink() {
   return (

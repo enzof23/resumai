@@ -32,7 +32,7 @@ export default function Main(props: { session: Session | null }) {
     );
 
   return (
-    <div className="flex flex-col h-full gap-y-6 md:gap-y-16 pt-4 md:pt-12">
+    <div className="flex flex-col h-full gap-y-6 md:gap-y-16 md:pt-12">
       <Hero />
       {!props.session && <AuthToaster />}
       {props.session && <CompleteProfileToaster />}

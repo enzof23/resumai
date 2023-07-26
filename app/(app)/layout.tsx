@@ -10,7 +10,7 @@ export default async function AppLayout({
 }) {
   const supabase = supabaseServer();
   const { data } = await supabase.auth.getSession();
-  const session = data.session;
+  const { session } = data;
 
   return (
     <>
