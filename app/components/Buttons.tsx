@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { supabaseClient } from "@/supabase/client";
+import { HalfCircleSpinner } from "react-epic-spinners";
 
 const buttonBaseStyle =
   "border-[2px] grid place-items-center rounded-md md:hover:text-neutral-50 duration-300";
@@ -32,13 +33,19 @@ export function SignUpLink() {
   );
 }
 
-export function AuthButton({ text }: { text: string }) {
+export function AuthButton({
+  text,
+  loading,
+}: {
+  text: string;
+  loading: boolean;
+}) {
   return (
     <button
       className={`${buttonBaseStyle} capitalize w-full py-2 text-neutral-200 font-medium border-neutral-200 md:hover:border-neutral-800 md:hover:bg-gradient-to-b md:hover:from-neutral-500 md:hover:to-neutral-700/50`}
       type="submit"
     >
-      {text}
+      {loading ? <HalfCircleSpinner size={24} /> : text}
     </button>
   );
 }

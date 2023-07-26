@@ -8,6 +8,8 @@ type BaseProps = {
   value?: string;
   required?: boolean;
   disabled?: boolean;
+  span?: string;
+  isError?: boolean;
 };
 
 type InputProps = {
@@ -54,6 +56,16 @@ export function Input({ ...props }: InputProps) {
         onFocus={(event) => event.target.classList.add("gradient-outline")}
         onBlur={(event) => event.target.classList.remove("gradient-outline")}
       />
+
+      {props.span && (
+        <span
+          className={`text-sm ${
+            props.isError ? "text-red-400" : "text-neutral-500"
+          }`}
+        >
+          {props.span}
+        </span>
+      )}
     </InputWrapper>
   );
 }
