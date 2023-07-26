@@ -2,32 +2,32 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Session } from "@supabase/auth-helpers-nextjs";
 
-import { LogInLink, SignUpLink } from "./Buttons";
+import { LogInLink, ProfileLink, SignOutButton, SignUpLink } from "./Buttons";
 import Logo from "./Logo";
 
-export function DesktopNavbar() {
+export function DesktopNavbar(props: { session: Session | null }) {
   return (
     <div className="hidden fixed z-[85] md:flex w-full justify-between px-5 py-4">
       <Logo />
 
-      {/* Conditionnally render button based on auth context */}
-
-      <div className="flex gap-x-3">
-        <LogInLink />
-        <SignUpLink />
-      </div>
-
-      {/* <div className="flex gap-x-3">
-        <ProfileLink />
-        <SignOutButton />
-      </div> */}
+      {props.session ? (
+        <div className="flex gap-x-3">
+          <ProfileLink />
+          <SignOutButton />
+        </div>
+      ) : (
+        <div className="flex gap-x-3">
+          <LogInLink />
+          <SignUpLink />
+        </div>
+      )}
     </div>
   );
 }
 
-export function MobileNavbar() {
-  const pathname = usePathname();
+export function MobileNavbar(props: { session: Session | null }) {
   const menuRef = useRef<HTMLElement>(null);
 
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -83,8 +83,17 @@ export function MobileNavbar() {
           menuOpen ? "top-0" : "-top-[460px]"
         }`}
       >
-        <LogInLink />
-        <SignUpLink />
+        {props.session ? (
+          <div className="flex gap-x-3">
+            <ProfileLink />
+            <SignOutButton />
+          </div>
+        ) : (
+          <div className="flex gap-x-3">
+            <LogInLink />
+            <SignUpLink />
+          </div>
+        )}
       </div>
     </nav>
   );

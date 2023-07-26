@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     "Get your personnalised resume and cover letter for the job you want",
 };
 
+export const revalidate = 0;
+
 export default function RootLayout({
   children,
 }: {

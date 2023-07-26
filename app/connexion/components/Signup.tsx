@@ -1,57 +1,151 @@
 "use client";
 
-import { Input } from "@/app/components/Inputs";
-import { handleSignUp } from "../actions";
+import { FormEvent, useEffect, useState } from "react";
+
+import { supabaseClient } from "@/supabase/client";
+
 import FormWrapper from "./wrapper";
+import { Input } from "@/app/components/Inputs";
 import { AuthButton } from "@/app/components/Buttons";
-import Link from "next/link";
+
+const passwordComplexity =
+  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$/;
 
 export default function Signup() {
+  const [view, setView] = useState<"form" | "success">("form");
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirm, setConfirm] = useState<string>("");
+
+  const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirmError, setConfirmError] = useState<boolean>(false);
+
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const passwordValid = passwordComplexity.test(password);
+  const passwordMatch = password === confirm;
+
+  async function handleSignUp(event: FormEvent) {
+    event.preventDefault();
+
+    try {
+      if (!passwordValid) {
+        setPasswordError(true);
+        return;
+      }
+
+      if (!passwordMatch) {
+        setConfirmError(true);
+        return;
+      }
+
+      if (passwordValid && passwordMatch) {
+        setLoader(true);
+
+        const supabase = supabaseClient();
+
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${location.origin}/api/callback?next=/profile`,
+          },
+        });
+
+        if (error) {
+          setError(error.message);
+          throw new Error(error.message);
+        }
+
+        setView("success");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoader(false);
+    }
+  }
+
+  useEffect(() => {
+    if (passwordComplexity.test(password)) setPasswordError(false);
+    if (passwordMatch) setConfirmError(false);
+  }, [password, passwordMatch]);
+
   return (
-    <FormWrapper>
-      <h3 className="text-lg md:text-2xl text-neutral-50 font-medium">
-        Create your account
-      </h3>
+    <>
+      {view === "form" ? (
+        <FormWrapper title="Create your account" link="login" error={error}>
+          <form
+            className="flex flex-col gap-y-2 md:gap-y-4"
+            onSubmit={handleSignUp}
+          >
+            <Input
+              id="email"
+              label="email"
+              type="email"
+              placeholder="resumai@example.com"
+              value={email}
+              onChange={setEmail}
+              required={true}
+            />
 
-      {/* <button>Continue with Google</button> */}
+            <Input
+              id="password"
+              label="password"
+              type="password"
+              placeholder="**********"
+              value={password}
+              onChange={setPassword}
+              required={true}
+              isError={passwordError}
+              span={
+                "Password must contain at least 8 characters, including an uppercase letter, a number and a special character."
+              }
+            />
 
-      <form className="flex flex-col gap-y-2 md:gap-y-4" action={handleSignUp}>
-        <Input
-          id="email"
-          label="email"
-          type="email"
-          placeholder="resumai@example.com"
-          required={true}
-        />
+            <Input
+              id="confirm"
+              label="confirm password"
+              type="password"
+              placeholder="**********"
+              value={confirm}
+              onChange={setConfirm}
+              required={true}
+              isError={confirmError}
+              span={
+                confirmError
+                  ? "The confirmation and the password do not match."
+                  : undefined
+              }
+            />
 
-        <Input
-          id="password"
-          label="password"
-          type="password"
-          placeholder="**********"
-          required={true}
-        />
+            <AuthButton text="sign up" loading={loader} />
+          </form>
+        </FormWrapper>
+      ) : (
+        <div className="flex flex-col place-self-center gap-y-2 max-w-md border border-neutral-50 rounded-lg p-4 sm:p-6 sm:gap-y-4">
+          <h3 className="text-xl font-inter font-semibold tracking-tighter leading-6 bg-gradient-to-b from-neutral-50 to-neutral-50/80 bg-clip-text text-transparent sm:text-2xl">
+            Congratulations, your account has been created successfully !
+          </h3>
 
-        <Input
-          id="confirm"
-          label="confirm password"
-          type="password"
-          placeholder="**********"
-          required={true}
-        />
+          <div className="flex flex-col gap-y-3 text-sm leading-4 sm:text-base">
+            <p className="max-w-[50ch] text-neutral-200">
+              In order to verify your account, please go to your inbox{" "}
+              <span className="font-mono font-medium underline">{email}</span>{" "}
+              and click the link we just sent you.
+            </p>
+            <p className="max-w-[50ch] font-semibold text-neutral-300 underline">
+              This link will redirect you to our website to complete your
+              profile.
+            </p>
 
-        <AuthButton text="sign up" />
-      </form>
-
-      <div className="text-sm flex flex-col sm:flex-row gap-x-1 self-center mt-2">
-        <p className="text-neutral-50">Already registered ?</p>
-        <Link
-          href="/connexion?auth=login"
-          className="md:hover:underline underline md:no-underline font-medium text-white"
-        >
-          Log in !
-        </Link>
-      </div>
-    </FormWrapper>
+            <p className="text-sm text-neutral-400">
+              Remember to check your spam folder !
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
