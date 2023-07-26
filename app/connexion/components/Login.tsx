@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 import { supabaseClient } from "@/supabase/client";
@@ -10,18 +10,21 @@ import { AuthButton } from "@/app/components/Buttons";
 
 export default function Login() {
   const router = useRouter();
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
   const [loader, setLoader] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSignIn(formData: FormData) {
+  async function handleSignIn(event: FormEvent) {
+    event.preventDefault();
+
     try {
       setError(null);
       setLoader(true);
 
       const supabase = supabaseClient();
-
-      const email = String(formData.get("email"));
-      const password = String(formData.get("password"));
 
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -33,7 +36,8 @@ export default function Login() {
         throw new Error(error.message);
       }
 
-      !error && router.push("/");
+      router.refresh();
+      router.push("/");
       setLoader(false);
     } catch (error) {
       console.log(error);
@@ -43,12 +47,17 @@ export default function Login() {
 
   return (
     <FormWrapper title="Login to your account" link="signup" error={error}>
-      <form className="flex flex-col gap-y-2 md:gap-y-4" action={handleSignIn}>
+      <form
+        className="flex flex-col gap-y-2 md:gap-y-4"
+        onSubmit={handleSignIn}
+      >
         <Input
           id="email"
           label="email"
           type="email"
           placeholder="resumai@example.com"
+          value={email}
+          onChange={setEmail}
           required={true}
         />
 
@@ -57,6 +66,8 @@ export default function Login() {
           label="password"
           type="password"
           placeholder="**********"
+          value={password}
+          onChange={setPassword}
           required={true}
         />
 
