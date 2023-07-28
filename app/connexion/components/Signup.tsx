@@ -124,7 +124,7 @@ export default function Signup() {
           </form>
         </FormWrapper>
       ) : (
-        <div className="flex flex-col place-self-center gap-y-2 max-w-md border border-neutral-50 rounded-lg p-4 sm:p-6 sm:gap-y-4">
+        <div className="flex flex-col gap-y-2 max-w-md border border-neutral-50 rounded-lg p-4 sm:p-6 sm:gap-y-4">
           <h3 className="text-xl font-inter font-semibold tracking-tighter leading-6 bg-gradient-to-b from-neutral-50 to-neutral-50/80 bg-clip-text text-transparent sm:text-2xl">
             Congratulations, your account has been created successfully !
           </h3>
