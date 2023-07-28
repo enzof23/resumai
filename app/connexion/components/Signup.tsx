@@ -14,6 +14,7 @@ const passwordComplexity =
 export default function Signup() {
   const [view, setView] = useState<"form" | "success">("form");
 
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirm, setConfirm] = useState<string>("");
@@ -51,6 +52,9 @@ export default function Signup() {
           password,
           options: {
             emailRedirectTo: `${location.origin}/api/callback?next=/profile`,
+            data: {
+              full_name: name,
+            },
           },
         });
 
@@ -80,6 +84,16 @@ export default function Signup() {
             className="flex flex-col gap-y-2 md:gap-y-4"
             onSubmit={handleSignUp}
           >
+            <Input
+              id="name"
+              label="full name"
+              type="text"
+              placeholder="John Doe"
+              value={name}
+              onChange={setName}
+              required={true}
+            />
+
             <Input
               id="email"
               label="email"
