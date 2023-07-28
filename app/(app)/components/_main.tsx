@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useChat } from "ai/react";
 
 import Hero from "./Hero";
-import { Input, TextArea } from "@/app/components/Inputs";
+import { Input, JobDescriptionInput } from "@/app/components/Inputs";
 import { AuthToaster, CompleteProfileToaster } from "./Toasters";
 
 import type { Session } from "@supabase/auth-helpers-nextjs";
@@ -60,7 +60,7 @@ export default function Main(props: { session: Session | null }) {
           onChange={setJobTitle}
         />
 
-        <TextArea
+        <JobDescriptionInput
           id="job-description"
           label="Job Description"
           placeholder="We are looking for a brave adventurer to go on a special mission..."

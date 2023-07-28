@@ -16,10 +16,20 @@ type InputProps = {
   onChange?: Dispatch<SetStateAction<string>>;
 } & BaseProps;
 
-type TextAreaProps = {
+type JobDescriptionProps = {
   onChange: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => void;
+} & BaseProps;
+
+type Option = {
+  value: string;
+  label: string;
+};
+
+type DropdownProps = {
+  onChange?: Dispatch<SetStateAction<string>>;
+  options: Option[];
 } & BaseProps;
 
 function InputWrapper(props: { children: React.ReactNode }) {
@@ -70,7 +80,91 @@ export function Input({ ...props }: InputProps) {
   );
 }
 
-export function TextArea({ ...props }: TextAreaProps) {
+export function TextArea({ ...props }: InputProps) {
+  return (
+    <InputWrapper>
+      <InputLabel id={props.id} label={props.label} />
+
+      {props.span && (
+        <span
+          className={`text-sm mt-[-6px] ${
+            props.isError ? "text-red-400" : "text-neutral-500"
+          }`}
+        >
+          {props.span}
+        </span>
+      )}
+
+      <textarea
+        id={props.id}
+        placeholder={props.placeholder}
+        value={props.value}
+        required={props.required}
+        onChange={(e) =>
+          props.onChange && props.onChange(e.currentTarget.value)
+        }
+        className="bg-neutral-900 min-h-[15ch] resize-y outline-none duration-300 placeholder:text-sm md:placeholder:text-base px-2 rounded-lg w-full py-2 md:px-3 font-mono text-neutral-100 border-2 border-neutral-600 placeholder:text-neutral-600"
+        onFocus={(event) => event.target.classList.add("gradient-outline")}
+        onBlur={(event) => event.target.classList.remove("gradient-outline")}
+      />
+    </InputWrapper>
+  );
+}
+
+export function Dropdown({ ...props }: DropdownProps) {
+  return (
+    <InputWrapper>
+      <InputLabel id={props.id} label={props.label} />
+
+      <select
+        id={props.id}
+        name={props.id}
+        value={props.value}
+        required={props.required}
+        onChange={(e) =>
+          props.onChange && props.onChange(e.currentTarget.value)
+        }
+        className="bg-neutral-900 outline-none duration-300 placeholder:text-sm md:placeholder:text-base px-2 rounded-lg w-full py-2 md:px-3 font-mono text-neutral-100 border-2 border-neutral-600 placeholder:text-neutral-600"
+        onFocus={(event) => event.target.classList.add("gradient-outline")}
+        onBlur={(event) => event.target.classList.remove("gradient-outline")}
+      >
+        {props.options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </InputWrapper>
+  );
+}
+
+export function DisabledInput({ ...props }: InputProps) {
+  return (
+    <InputWrapper>
+      <InputLabel id={props.id} label={props.label} />
+
+      <input
+        id={props.id}
+        type={props.type}
+        value={props.value}
+        disabled={true}
+        className="bg-neutral-900 outline-none px-2 rounded-lg w-full py-2 md:px-3 font-mono text-neutral-500 border-2 border-neutral-800"
+      />
+
+      {props.span && (
+        <span
+          className={`text-sm ${
+            props.isError ? "text-red-400" : "text-neutral-500"
+          }`}
+        >
+          {props.span}
+        </span>
+      )}
+    </InputWrapper>
+  );
+}
+
+export function JobDescriptionInput({ ...props }: JobDescriptionProps) {
   return (
     <InputWrapper>
       <InputLabel id={props.id} label={props.label} />

@@ -57,34 +57,34 @@ export interface Database {
       };
       profiles: {
         Row: {
-          auth_id: string | null;
-          bio: string | null;
+          auth_id: string;
+          bio: string;
           email: string;
           full_name: string;
           location: string;
           primary_role: string;
           profile_id: string;
-          years_experience: number | null;
+          years_experience: string;
         };
         Insert: {
-          auth_id?: string | null;
-          bio?: string | null;
+          auth_id?: string;
+          bio?: string;
           email?: string;
           full_name?: string;
           location?: string;
           primary_role?: string;
           profile_id?: string;
-          years_experience?: number | null;
+          years_experience?: string;
         };
         Update: {
-          auth_id?: string | null;
-          bio?: string | null;
+          auth_id?: string;
+          bio?: string;
           email?: string;
           full_name?: string;
           location?: string;
           primary_role?: string;
           profile_id?: string;
-          years_experience?: number | null;
+          years_experience?: string;
         };
         Relationships: [
           {

@@ -3,7 +3,7 @@
 import { LogInLink, ProfileLink, SignUpLink } from "@/app/components/Buttons";
 
 const toasterBaseStyles =
-  "flex flex-wrap items-center justify-center md:self-center w-fit py-3 px-3 gap-2 rounded-lg gradient-outline bg-gradient-to-b from-neutral-500 to-neutral-500/50 sm:gap-4 sm:px-4 md:my-[-25px]";
+  "flex flex-wrap items-center justify-center md:self-center w-fit py-3 px-3 gap-3 rounded-lg gradient-outline bg-gradient-to-b from-neutral-500 to-neutral-500/50 sm:gap-4 sm:px-4 md:my-[-25px]";
 
 const toasterHeaderStyles =
   "text-sm font-light text-neutral-100 text-center sm:text-start";
@@ -28,7 +28,7 @@ export function CompleteProfileToaster() {
   return (
     <div className={toasterBaseStyles}>
       <h3 className={toasterHeaderStyles}>
-        Complete your profile for an even more accurate result !
+        Complete your profile for an even more accurate result
       </h3>
 
       <ProfileLink />

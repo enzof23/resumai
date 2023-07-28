@@ -9,7 +9,7 @@ import Logo from "./Logo";
 
 export function DesktopNavbar(props: { session: Session | null }) {
   return (
-    <div className="hidden fixed z-[85] md:flex w-full justify-between px-5 py-4">
+    <div className="hidden bg-neutral-950 fixed z-[85] md:flex w-full justify-between px-5 py-4">
       <Logo />
 
       {props.session ? (
@@ -84,12 +84,12 @@ export function MobileNavbar(props: { session: Session | null }) {
         }`}
       >
         {props.session ? (
-          <div className="flex gap-x-3">
+          <div className="flex flex-col w-28 gap-y-3">
             <ProfileLink />
             <SignOutButton />
           </div>
         ) : (
-          <div className="flex gap-x-3">
+          <div className="flex flex-col w-28 gap-y-3">
             <LogInLink />
             <SignUpLink />
           </div>
