@@ -14,6 +14,7 @@ export async function middleware(req: NextRequest) {
 
   const onConnexionRoute = pathname.startsWith("/connexion");
   const alreadyAuthenticated = session && onConnexionRoute;
+  const onProtectedRoute = !session && pathname.startsWith("/profile");
 
   if (alreadyAuthenticated) {
     // User is trying to access "/connexion" but is already authenticated
@@ -22,5 +23,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  if (onProtectedRoute) {
+    // User is trying to access "/profile" but is not authenticated
+    const redirectUrl = req.nextUrl.clone();
+    redirectUrl.pathname = "/";
+    return NextResponse.redirect(redirectUrl);
+  }
+
   return res;
 }
+
+export const config = {
+  matcher: ["/", "/connexion", "/profile"],
+};

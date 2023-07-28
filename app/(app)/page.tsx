@@ -1,5 +1,5 @@
 import { supabaseServer } from "@/supabase/server-client";
-import Main from "./component/_main";
+import Main from "./components/_main";
 
 export default async function Home() {
   const supabase = supabaseServer();

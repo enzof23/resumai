@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import type { PROFILE } from "@/lib/database.types";
 
-type ProfileContext = { realtimeProfiles: PROFILE[] };
+type ProfileContext = { user_profile: PROFILE };
 
 const Context = createContext<ProfileContext | undefined>(undefined);
 
@@ -15,13 +15,11 @@ export default function ProfileProvider({
   auth_id,
 }: {
   children: React.ReactNode;
-  profile: PROFILE[];
+  profile: PROFILE;
   auth_id: string;
 }) {
   const supabase = supabaseClient();
-  const [realtimeProfiles, setRealtimeProfiles] = useState<PROFILE[]>(profile);
-
-  console.log(profile);
+  const [user_profile, setUserProfile] = useState<PROFILE>(profile);
 
   useEffect(() => {
     const channel = supabase
@@ -35,8 +33,8 @@ export default function ProfileProvider({
           filter: `auth_id=eq.${auth_id}`,
         },
         (payload) => {
-          const updatedProfile = payload.new as PROFILE[];
-          setRealtimeProfiles(updatedProfile);
+          const updatedProfile = payload.new as PROFILE;
+          setUserProfile(updatedProfile);
         }
       )
       .subscribe();
@@ -47,7 +45,7 @@ export default function ProfileProvider({
   }, [auth_id, supabase]);
 
   return (
-    <Context.Provider value={{ realtimeProfiles }}>{children}</Context.Provider>
+    <Context.Provider value={{ user_profile }}>{children}</Context.Provider>
   );
 }
 
