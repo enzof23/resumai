@@ -1,7 +1,7 @@
 "use client";
 
 import { HalfCircleSpinner } from "react-epic-spinners";
-import { Target, UpdatesParams } from "../page";
+import { Target, UpdatesParams } from "./sections";
 
 type ContainerProps = {
   children: React.ReactNode;

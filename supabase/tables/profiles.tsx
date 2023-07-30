@@ -1,6 +1,6 @@
 "use client";
 
-import { supabaseClient } from "./client";
+import { supabaseClient } from "../client";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import type { PROFILE } from "@/lib/database.types";
