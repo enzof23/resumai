@@ -13,6 +13,19 @@ import type { EXPERIENCE } from "@/lib/database.types";
 
 type SetString = React.Dispatch<React.SetStateAction<string>>;
 
+type FormWrapperProps = {
+  showForm: boolean;
+  children: React.ReactNode;
+  onCancel: () => void;
+  onSave?: (e: FormEvent) => Promise<void>;
+  onEdit?: (e: FormEvent, exp: EXPERIENCE) => Promise<void>;
+  onDelete?: () => Promise<void>;
+  isSaving: boolean;
+  isDeleting?: boolean;
+  isEdit?: boolean;
+  experience?: EXPERIENCE;
+};
+
 type ExpFormProps = {
   company: string;
   setCompany: SetString;
@@ -28,18 +41,7 @@ type ExpFormProps = {
   setDescription: SetString;
 };
 
-export function FormWrapper(props: {
-  showForm: boolean;
-  children: React.ReactNode;
-  onCancel: () => void;
-  onSave?: (e: FormEvent) => Promise<void>;
-  onEdit?: (e: FormEvent, exp: EXPERIENCE) => Promise<void>;
-  onDelete?: () => Promise<void>;
-  isSaving: boolean;
-  isDeleting?: boolean;
-  isEdit?: boolean;
-  experience?: EXPERIENCE;
-}) {
+export function FormWrapper(props: FormWrapperProps) {
   return (
     <form
       onSubmit={(e) => {
