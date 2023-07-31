@@ -14,7 +14,7 @@ export interface Database {
           auth_id: string | null;
           company: string;
           description: string | null;
-          end_date: string | null;
+          end_date: string;
           experience_id: string;
           profile_id: string;
           role: string;
@@ -24,7 +24,7 @@ export interface Database {
           auth_id?: string | null;
           company: string;
           description?: string | null;
-          end_date?: string | null;
+          end_date?: string;
           experience_id?: string;
           profile_id: string;
           role: string;
@@ -34,7 +34,7 @@ export interface Database {
           auth_id?: string | null;
           company?: string;
           description?: string | null;
-          end_date?: string | null;
+          end_date?: string;
           experience_id?: string;
           profile_id?: string;
           role?: string;
