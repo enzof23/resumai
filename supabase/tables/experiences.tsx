@@ -28,14 +28,36 @@ export default function ExperienceProvider({
       .on(
         "postgres_changes",
         {
-          event: "INSERT",
+          event: "*",
           schema: "public",
           table: "experience",
           filter: `auth_id=eq.${auth_id}`,
         },
         (payload) => {
-          const newExperience = payload.new as EXPERIENCE;
-          setUserExperience((prev) => [...prev, newExperience]);
+          if (payload.eventType === "INSERT") {
+            const newExperience = payload.new as EXPERIENCE;
+            setUserExperience((prev) => [...prev, newExperience]);
+          }
+
+          if (payload.eventType === "UPDATE") {
+            const updatedExperience = payload.new as EXPERIENCE;
+            const { experience_id } = updatedExperience;
+
+            setUserExperience((prev) =>
+              prev.map((x) =>
+                x.experience_id === experience_id ? updatedExperience : x
+              )
+            );
+          }
+
+          if (payload.eventType === "DELETE") {
+            const deletedExperience = payload.old as EXPERIENCE;
+            const { experience_id } = deletedExperience;
+
+            setUserExperience((prev) =>
+              prev.filter((x) => x.experience_id !== experience_id)
+            );
+          }
         }
       )
       .subscribe();

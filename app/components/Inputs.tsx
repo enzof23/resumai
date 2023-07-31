@@ -108,8 +108,6 @@ export const today = `${date.getFullYear()}-${
   date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
 }`;
 
-console.log(today);
-
 export function DateInput({ ...props }: InputProps) {
   return (
     <InputWrapper id={props.id} label={props.label}>

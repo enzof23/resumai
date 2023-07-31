@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
+import { BsPlus } from "react-icons/bs";
 import { supabaseClient } from "@/supabase/client";
 
 import { useProfiles } from "@/supabase/tables/profiles";
 import { useExperience } from "@/supabase/tables/experiences";
 
-import { BsPlus } from "react-icons/bs";
 import { InputContainer } from "./InputContainer";
+import { FormWrapper, ExperienceForm } from "./forms";
 import {
-  DateInput,
   DisabledInput,
   Dropdown,
   Input,
-  InputWrapper,
   TextArea,
 } from "@/app/components/Inputs";
-import { HalfCircleSpinner } from "react-epic-spinners";
+
+import type { EXPERIENCE } from "@/lib/database.types";
 
 function SectionWrapper({ children }: { children: React.ReactNode }) {
   return (
@@ -286,6 +286,7 @@ export function WorkExperienceSection() {
   } = useProfiles();
 
   const [addExperience, setAddExperience] = useState<boolean>(false);
+  const [editExperience, setEditExperience] = useState<string>("");
 
   const [company, setCompany] = useState<string>("");
   const [role, setRole] = useState<string>("");
@@ -295,6 +296,7 @@ export function WorkExperienceSection() {
   const [description, setDescription] = useState<string>("");
 
   const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   function handleCheckbox() {
     if (current) {
@@ -307,7 +309,9 @@ export function WorkExperienceSection() {
     }
   }
 
-  async function saveExperience() {
+  // onClick for NewExperience form save button => inserts new row in "experiences" table
+  async function saveExperience(e: FormEvent) {
+    e.preventDefault();
     try {
       const supabase = supabaseClient();
       setIsSaving(true);
@@ -322,11 +326,97 @@ export function WorkExperienceSection() {
       });
 
       resetExperience();
+      setIsSaving(false);
     } catch (error) {
       setIsSaving(false);
     }
   }
 
+  // sets states for onClick "Edit" button in experience section
+  function onEditExperience(exp: EXPERIENCE) {
+    setAddExperience(false);
+
+    setCompany(exp.company);
+    setRole(exp.role);
+    setStart(exp.start_date);
+    setDescription(exp.description ?? "");
+
+    if (exp.end_date === "current") {
+      setCurrent(true);
+    } else {
+      setEnd(exp.end_date);
+    }
+  }
+
+  // onClick for Experience form save button => updates modified values in "experiences" table row
+  async function updateExperience(event: FormEvent, exp: EXPERIENCE) {
+    event.preventDefault();
+
+    try {
+      setIsSaving(true);
+      const supabase = supabaseClient();
+
+      if (company !== exp.company) {
+        await supabase
+          .from("experience")
+          .update({ company })
+          .eq("experience_id", exp.experience_id);
+      }
+
+      if (role !== exp.role) {
+        await supabase
+          .from("experience")
+          .update({ role })
+          .eq("experience_id", exp.experience_id);
+      }
+
+      if (start !== exp.start_date) {
+        await supabase
+          .from("experience")
+          .update({ start_date: start })
+          .eq("experience_id", exp.experience_id);
+      }
+
+      if (end !== exp.end_date) {
+        const end_date = end === "" ? "current" : end;
+        await supabase
+          .from("experience")
+          .update({ end_date })
+          .eq("experience_id", exp.experience_id);
+      }
+
+      if (description !== exp.description) {
+        await supabase
+          .from("experience")
+          .update({ description })
+          .eq("experience_id", exp.experience_id);
+      }
+
+      setIsSaving(false);
+      setEditExperience("");
+      resetExperience();
+    } catch (error) {
+      setIsSaving(false);
+      console.log(error);
+    }
+  }
+
+  // onClick for "remove position" button => delete row in "experiences" table
+  async function deleteExperience(id: string) {
+    try {
+      setIsDeleting(true);
+      const supabase = supabaseClient();
+
+      await supabase.from("experience").delete().eq("experience_id", id);
+
+      setIsDeleting(false);
+    } catch (error) {
+      setIsDeleting(false);
+      console.log(error);
+    }
+  }
+
+  // onClick for "cancel" button => resets form states
   function resetExperience() {
     setAddExperience(false);
     setCompany("");
@@ -336,6 +426,36 @@ export function WorkExperienceSection() {
     setCurrent(false);
     setDescription("");
   }
+
+  // sort experiences from most recent to oldest
+  function sortExperiences(experiences: EXPERIENCE[]) {
+    experiences.sort((a, b) => {
+      const dateA = new Date(a.start_date);
+      const dateB = new Date(b.start_date);
+
+      // Compare the dates and return the appropriate value
+      if (dateA < dateB) {
+        return 1;
+      } else if (dateA > dateB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    return experiences;
+  }
+
+  // listens to "edit" button click and
+  useEffect(() => {
+    const exp = user_experience.filter(
+      (x) => x.experience_id === editExperience
+    );
+
+    if (exp.length > 0) {
+      onEditExperience(exp[0]);
+    }
+  }, [editExperience, user_experience]);
 
   return (
     <SectionWrapper>
@@ -348,96 +468,106 @@ export function WorkExperienceSection() {
       </div>
 
       <div className="flex flex-col flex-1 gap-y-4">
-        {user_experience.map((exp) => {
-          return <p key={exp.experience_id}>{exp.role}</p>;
+        {sortExperiences(user_experience).map((exp) => {
+          // If user clicked edit, display form instead of experience display div
+          if (editExperience === exp.experience_id) {
+            return (
+              <FormWrapper
+                key={exp.experience_id}
+                showForm={true}
+                onCancel={() => {
+                  setEditExperience("");
+                  resetExperience();
+                }}
+                onEdit={updateExperience}
+                onDelete={() => deleteExperience(exp.experience_id)}
+                isSaving={isSaving}
+                isEdit={true}
+                isDeleting={isDeleting}
+                experience={exp}
+              >
+                <ExperienceForm
+                  company={company}
+                  setCompany={setCompany}
+                  role={role}
+                  setRole={setRole}
+                  start={start}
+                  setStart={setStart}
+                  end={end}
+                  setEnd={setEnd}
+                  current={current}
+                  handleCheckbox={handleCheckbox}
+                  description={description ?? ""}
+                  setDescription={setDescription}
+                />
+              </FormWrapper>
+            );
+          }
+
+          return (
+            // default experience display
+            <div
+              key={exp.experience_id}
+              className="flex flex-col gap-y-2 border rounded-sm border-neutral-500 leading-5 p-3 bg-neutral-900 sm:pl-5 sm:p-4"
+            >
+              <div className="flex flex-col">
+                <div className="flex flex-1 justify-between items-center">
+                  <h4 className="font-semibold font-mono tracking-tight sm:leading-5 sm:text-lg">
+                    {exp.role}
+                  </h4>
+                  <button
+                    onClick={() => setEditExperience(exp.experience_id)}
+                    className="text-sm text-neutral-300 h-fit"
+                  >
+                    Edit
+                  </button>
+                </div>
+
+                <p className="text-sm font-semibold text-neutral-300 sm:text-base">
+                  {exp.company}
+                </p>
+                <p className="text-sm font-light text-neutral-400">
+                  {exp.start_date} to{" "}
+                  {exp.end_date === "current" ? "Present" : exp.end_date}
+                </p>
+              </div>
+
+              <p className="text-neutral-200 font-light">{exp.description}</p>
+            </div>
+          );
         })}
 
-        {/* Form hidden default */}
-        <div
-          className={`flex flex-col gap-y-4 bg-neutral-900 rounded-sm border border-neutral-800 p-3 ${
-            !addExperience && "hidden"
-          }`}
+        {/* NewExperienceForm hidden default */}
+        <FormWrapper
+          showForm={addExperience}
+          onCancel={resetExperience}
+          onSave={saveExperience}
+          isSaving={isSaving}
         >
-          <Input
-            id="company"
-            label="Company*"
-            type="text"
-            placeholder="Meteorix Marketing"
-            value={company}
-            onChange={setCompany}
-            required={true}
+          <ExperienceForm
+            company={company}
+            setCompany={setCompany}
+            role={role}
+            setRole={setRole}
+            start={start}
+            setStart={setStart}
+            end={end}
+            setEnd={setEnd}
+            current={current}
+            handleCheckbox={handleCheckbox}
+            description={description}
+            setDescription={setDescription}
           />
-
-          <Input
-            id="role"
-            label="Position*"
-            type="text"
-            placeholder="Cosmic Marketing Strategist"
-            value={role}
-            onChange={setRole}
-            required={true}
-          />
-
-          <DateInput
-            id="start"
-            label="Start date*"
-            value={start}
-            onChange={setStart}
-            required={true}
-          />
-
-          <InputWrapper id="end" label="End date*">
-            {!current && (
-              <DateInput
-                id="end"
-                value={end}
-                onChange={setEnd}
-                required={true}
-              />
-            )}
-
-            <label className="flex gap-x-2">
-              <input
-                type="checkbox"
-                checked={current}
-                onChange={handleCheckbox}
-              />
-              I currently work here
-            </label>
-          </InputWrapper>
-
-          <TextArea
-            id="description"
-            label="Description"
-            type="text"
-            placeholder="Mapping out stellar marketing campaigns, harnessing the power of the cosmos to propel brands to astronomical success..."
-            value={description}
-            onChange={setDescription}
-            required={false}
-            span="Optional: briefly describe your responsibilities in this role"
-          />
-
-          <div className="flex gap-4 self-end text-sm">
-            <button
-              onClick={resetExperience}
-              className="uppercase font-mono font-semibold text-red-600"
-              disabled={isSaving}
-            >
-              cancel
-            </button>
-            <button
-              onClick={saveExperience}
-              className="grid place-items-center uppercase font-mono font-semibold text-neutral-100 border rounded-sm px-2 min-w-[50px] h-6"
-            >
-              {isSaving ? <HalfCircleSpinner size={16} /> : "save"}
-            </button>
-          </div>
-        </div>
+        </FormWrapper>
 
         {/* Button reveal form */}
         <button
           className={`flex items-center w-fit ${addExperience && "hidden"}`}
-          onClick={() => setAddExperience(true)}
+          onClick={() => {
+            resetExperience();
+            setEditExperience("");
+            setAddExperience(true);
+          }}
         >
           <BsPlus className="text-xl" />
           Add work experience
