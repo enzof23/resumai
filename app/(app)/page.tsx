@@ -8,7 +8,7 @@ export default async function Home() {
   const { session } = data;
 
   return (
-    <div className="flex flex-col h-full gap-y-6 md:gap-y-16 py-4 md:pt-12">
+    <div className="flex flex-col w-full h-full gap-y-6 md:gap-y-16 py-4">
       <Main session={session} />
     </div>
   );

@@ -1,4 +1,11 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+} from "react";
 
 type BaseProps = {
   id: string;
@@ -33,6 +40,10 @@ type JobDescriptionProps = {
   ) => void;
 } & BaseProps;
 
+type CoverLetterProps = {
+  response: string;
+} & BaseProps;
+
 type Option = {
   value: string;
   label: string;
@@ -45,7 +56,7 @@ type DropdownProps = {
 
 export function InputWrapper(props: WrapperProps) {
   return (
-    <div className="flex flex-col gap-y-1 w-full">
+    <div className="flex flex-col gap-y-1 w-full h-full">
       {/* Label */}
       {props.label && (
         <label
@@ -195,15 +206,63 @@ export function DisabledInput({ ...props }: InputProps) {
 }
 
 export function JobDescriptionInput({ ...props }: JobDescriptionProps) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const textarea = ref.current;
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      const newHeight = textarea.scrollHeight + 2;
+      textarea.style.height = `${newHeight}px`;
+    }
+  }, [props.value]);
+
   return (
     <InputWrapper id={props.id} label={props.label}>
       <textarea
         id={props.id}
+        ref={ref}
         placeholder={props.placeholder}
         value={props.value}
         required={props.required}
         onChange={props.onChange}
-        className={`${baseStyles} ${inputStyles} min-h-[20ch] resize-none`}
+        className={`${baseStyles} ${inputStyles} overflow-y-hidden min-h-[20ch] resize-none`}
+        onFocus={(event) => event.target.classList.add("gradient-outline")}
+        onBlur={(event) => event.target.classList.remove("gradient-outline")}
+      />
+    </InputWrapper>
+  );
+}
+
+export function CoverLetterResponseInput(props: CoverLetterProps) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  const { response } = props;
+  const [responseValue, setResponseValue] = useState<string>(response);
+
+  useEffect(() => {
+    setResponseValue(response);
+  }, [response]);
+
+  useEffect(() => {
+    const textarea = ref.current;
+
+    if (textarea) {
+      textarea.style.height = "auto";
+      const newHeight = textarea.scrollHeight + 2;
+      textarea.style.height = `${newHeight}px`;
+    }
+  }, [props.response]);
+
+  return (
+    <InputWrapper id={props.id}>
+      <textarea
+        id={props.id}
+        ref={ref}
+        value={responseValue}
+        onChange={(e) => setResponseValue(e.currentTarget.value)}
+        className={`${baseStyles} ${inputStyles} overflow-y-hidden resize-none min-h-[20ch]`}
         onFocus={(event) => event.target.classList.add("gradient-outline")}
         onBlur={(event) => event.target.classList.remove("gradient-outline")}
       />
