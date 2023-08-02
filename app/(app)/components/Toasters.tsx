@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import { LogInLink, SignUpLink } from "@/app/components/Buttons";
-import CircularProgress from "@/app/components/CircularProgress";
+
 import { useExperience } from "@/supabase/tables/experiences";
 import { useProfiles } from "@/supabase/tables/profiles";
-import Link from "next/link";
+
+import { LogInLink, SignUpLink } from "@/app/components/Buttons";
+import CircularProgress from "@/app/components/CircularProgress";
 
 const toasterBaseStyles =
   "flex flex-wrap items-center justify-center w-fit gap-3 rounded-lg bg-gradient-to-b from-neutral-500 to-neutral-500/50 sm:gap-4 sm:px-4 md:my-[-25px] md:self-center";
