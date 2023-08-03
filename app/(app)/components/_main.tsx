@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useChat } from "ai/react";
 import { IoMdArrowBack } from "react-icons/io";
 
+import { useProfiles } from "@/supabase/tables/profiles";
+import { useExperience } from "@/supabase/tables/experiences";
+
 import { AuthToaster, CompleteProfileToaster } from "./Toasters";
+import { DownloadDOCX, DownloadPDF } from "@/app/components/Buttons";
 import {
   CoverLetterResponseInput,
   Input,
@@ -12,11 +16,40 @@ import {
 } from "@/app/components/Inputs";
 
 import type { Session } from "@supabase/auth-helpers-nextjs";
-import { DownloadDOCX, DownloadPDF } from "@/app/components/Buttons";
 
 export default function Main(props: { session: Session | null }) {
-  const [companyName, setCompanyName] = useState<string>("Apple");
-  const [jobTitle, setJobTitle] = useState<string>("Web Developer");
+  const { user_profile } = useProfiles();
+  const { user_experience } = useExperience();
+
+  const [companyName, setCompanyName] = useState<string>("");
+  const [jobTitle, setJobTitle] = useState<string>("");
+
+  const experience_data = user_experience.map((exp) => ({
+    company: exp.company,
+    role: exp.role,
+    description: exp.description,
+    started: exp.start_date,
+    ended: exp.end_date,
+  }));
+
+  const experiences = experience_data
+    .map((exp, index) => {
+      const title = `Role ${index + 1}`;
+      const experienceString = Object.entries(exp)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(", ");
+      return ` """${title}: ${experienceString}""" \n`;
+    })
+    .join(`\n`);
+
+  const user_data = {
+    name: user_profile.full_name,
+    role: user_profile.primary_role,
+    location: user_profile.location,
+    seniority: user_profile.years_experience,
+    bio: user_profile.bio,
+    experiences,
+  };
 
   const {
     messages,
@@ -27,7 +60,7 @@ export default function Main(props: { session: Session | null }) {
     isLoading,
   } = useChat({
     api: "/api/gpt",
-    body: { companyName, jobTitle },
+    body: { companyName, jobTitle, user_data },
   });
 
   // Cover Letter Form
@@ -103,7 +136,11 @@ export default function Main(props: { session: Session | null }) {
   return (
     <div className="self-center flex-1 flex flex-col gap-3 w-full pt-4 sm:gap-4 sm:max-w-2xl sm:pt-12">
       <button
-        onClick={() => setMessages([])}
+        onClick={() => {
+          setMessages([]);
+          setCompanyName("");
+          setJobTitle("");
+        }}
         className="grid place-items-center w-fit"
       >
         <IoMdArrowBack className="text-2xl" />
