@@ -8,7 +8,7 @@ import { useProfiles } from "@/supabase/tables/profiles";
 import { useExperience } from "@/supabase/tables/experiences";
 
 import { AuthToaster, CompleteProfileToaster } from "./Toasters";
-import { DownloadDOCX, DownloadPDF } from "@/app/components/Buttons";
+// import { DownloadDOCX, DownloadPDF } from "@/app/components/Buttons";
 import {
   CoverLetterResponseInput,
   Input,
@@ -172,12 +172,12 @@ export default function Main(props: { session: Session | null }) {
       ) : (
         <>
           <CoverLetterResponseInput id="response" response={response[0]} />
-          {!isLoading && (
+          {/* {!isLoading && (
             <div className="flex flex-col flex-1 gap-2 sm:flex-row">
               <DownloadDOCX />
               <DownloadPDF />
             </div>
-          )}
+          )} */}
         </>
       )}
     </div>
