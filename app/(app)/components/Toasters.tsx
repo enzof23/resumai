@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useExperience } from "@/supabase/tables/experiences";
 import { useProfiles } from "@/supabase/tables/profiles";
 
-import { LogInLink, SignUpLink } from "@/app/components/Buttons";
+import { LogInLink, SignUpLink } from "@/components/ui/buttons";
 import CircularProgress from "@/app/components/CircularProgress";
 
 const toasterBaseStyles =

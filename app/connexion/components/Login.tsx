@@ -6,7 +6,7 @@ import { supabaseClient } from "@/supabase/client";
 
 import FormWrapper from "./wrapper";
 import { Input } from "@/app/components/Inputs";
-import { AuthButton } from "@/app/components/Buttons";
+import { AuthButton } from "@/components/ui/buttons";
 
 export default function Login() {
   const router = useRouter();

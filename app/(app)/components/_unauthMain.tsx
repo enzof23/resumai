@@ -9,7 +9,7 @@ import {
   JobDescriptionInput,
 } from "@/app/components/Inputs";
 import { IoMdArrowBack } from "react-icons/io";
-import { DownloadDOCX, DownloadPDF } from "@/app/components/Buttons";
+import { DownloadDOCX, DownloadPDF } from "@/components/ui/buttons";
 
 export default function UnauthMain() {
   const [companyName, setCompanyName] = useState<string>("");

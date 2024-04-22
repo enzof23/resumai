@@ -6,7 +6,7 @@ import { supabaseClient } from "@/supabase/client";
 
 import FormWrapper from "./wrapper";
 import { Input } from "@/app/components/Inputs";
-import { AuthButton } from "@/app/components/Buttons";
+import { AuthButton } from "@/components/ui/buttons";
 
 const passwordComplexity =
   /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,24}$/;
