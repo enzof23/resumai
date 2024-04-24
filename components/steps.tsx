@@ -47,7 +47,7 @@ export default function Steps() {
       })}
 
       <Link
-        href={"/"}
+        href={"/resumai"}
         className="z-10 border-2 border-slate-400/80 bg-gradient-to-br from-slate-900 to-slate-600 text-center rounded-lg py-4 font-medium tracking-wide md:self-center md:px-12 lg:px-16 lg:self-start lg:ml-24"
       >
         Get Started
