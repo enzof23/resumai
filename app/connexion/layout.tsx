@@ -11,11 +11,11 @@ export default function ConnexionLayout({
         <Resumai />
 
         <div className="flex flex-col gap-y-3 lg:gap-y-10 lg:flex-1 lg:justify-center lg:pl-6 xl:pl-[6vw]">
-          <h3 className="text-3xl font-inter max-w-[18ch] bg-gradient-to-b from-neutral-50 to-neutral-50/60 bg-clip-text text-transparent font-bold tracking-tighter sm:text-5xl">
+          <h3 className="text-3xl font-inter max-w-[18ch] bg-gradient-to-b from-slate-50 to-slate-50/60 bg-clip-text text-transparent font-bold tracking-tighter sm:text-5xl">
             Unlock Your Career Potential with AI-Powered Cover Letters!
           </h3>
 
-          <p className="text-xs font-mono font-light max-w-lg text-neutral-200 tracking-tight leading-4 sm:text-sm lg:text-base">
+          <p className="text-xs font-mono font-light max-w-lg text-slate-200 tracking-tight leading-4 sm:text-sm lg:text-base">
             Join us today to experience the power of AI in crafting personalized
             cover letters that elevate your job applications to new heights.{" "}
             <br /> <br /> Log in or create an account to get started on your

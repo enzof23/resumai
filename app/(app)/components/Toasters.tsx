@@ -10,10 +10,10 @@ import { LogInLink, SignUpLink } from "@/components/ui/buttons";
 import CircularProgress from "@/app/components/CircularProgress";
 
 const toasterBaseStyles =
-  "flex flex-wrap items-center justify-center w-fit gap-3 rounded-lg bg-gradient-to-b from-neutral-500 to-neutral-500/50 sm:gap-4 sm:px-4 md:my-[-25px] md:self-center";
+  "flex flex-wrap items-center justify-center w-fit gap-3 rounded-lg bg-gradient-to-b from-slate-500 to-slate-500/50 sm:gap-4 sm:px-4 md:my-[-25px] md:self-center";
 
 const toasterHeaderStyles =
-  "text-sm font-light text-neutral-100 text-center sm:text-start";
+  "text-sm font-light text-slate-100 text-center sm:text-start";
 
 export function AuthToaster() {
   return (

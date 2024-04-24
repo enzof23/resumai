@@ -75,9 +75,7 @@ export function InputWrapper(props: WrapperProps) {
 function InputSpan(props: SpanProps) {
   return (
     <span
-      className={`text-sm ${
-        props.isError ? "text-red-400" : "text-neutral-500"
-      }`}
+      className={`text-sm ${props.isError ? "text-red-400" : "text-slate-500"}`}
     >
       {props.span}
     </span>
@@ -85,10 +83,10 @@ function InputSpan(props: SpanProps) {
 }
 
 const baseStyles =
-  "font-mono bg-neutral-900 px-2 py-2 w-full outline-none border-2 rounded-lg md:px-3";
+  "font-mono bg-slate-900 px-2 py-2 w-full outline-none border-2 rounded-lg md:px-3";
 
 const inputStyles =
-  "text-neutral-100 border-neutral-600 duration-300 placeholder:text-sm placeholder:text-neutral-600 md:placeholder:text-base";
+  "text-slate-100 border-slate-600 duration-300 placeholder:text-sm placeholder:text-slate-600 md:placeholder:text-base";
 
 export function Input({ ...props }: InputProps) {
   return (
@@ -197,7 +195,7 @@ export function DisabledInput({ ...props }: InputProps) {
         type={props.type}
         value={props.value}
         disabled={true}
-        className={`${baseStyles} text-neutral-500  border-neutral-800`}
+        className={`${baseStyles} text-slate-500  border-slate-800`}
       />
 
       {props.span && <InputSpan span={props.span} isError={props.isError} />}

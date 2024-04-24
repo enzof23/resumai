@@ -11,7 +11,7 @@ export default function CircularProgress({ filled }: { filled: number }) {
   return (
     <svg width={sqSize} height={sqSize} viewBox={viewBox}>
       <circle
-        className="fill-none stroke-neutral-50"
+        className="fill-none stroke-slate-50"
         cx={sqSize / 2}
         cy={sqSize / 2}
         r={radius}
@@ -31,7 +31,7 @@ export default function CircularProgress({ filled }: { filled: number }) {
         }}
       />
       <text
-        className="text-[10px] fill-neutral-100 font-semibold tracking-tight"
+        className="text-[10px] fill-slate-100 font-semibold tracking-tight"
         x="50%"
         y="50%"
         dy=".3em"

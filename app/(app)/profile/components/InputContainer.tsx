@@ -31,7 +31,7 @@ export function InputContainer({ ...props }: ContainerProps) {
             onClick={() =>
               props.handleUpdates({ type: "save", target: props.target })
             }
-            className="grid place-items-center uppercase font-mono font-semibold text-neutral-100 border rounded-sm px-2 min-w-[50px] h-6"
+            className="grid place-items-center uppercase font-mono font-semibold text-slate-100 border rounded-sm px-2 min-w-[50px] h-6"
           >
             {props.isSaving ? <HalfCircleSpinner size={16} /> : "save"}
           </button>

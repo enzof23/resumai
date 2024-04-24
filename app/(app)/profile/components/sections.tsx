@@ -174,11 +174,11 @@ export function ProfileSection() {
   return (
     <SectionWrapper>
       <div className="flex flex-col gap-1 sm:max-w-[30%]">
-        <h3 className="font-mono font-semibold text-neutral-100 text-lg sm:text-xl">
+        <h3 className="font-mono font-semibold text-slate-100 text-lg sm:text-xl">
           Tell us about yourself
         </h3>
 
-        <p className="text-sm text-neutral-300">
+        <p className="text-sm text-slate-300">
           To start your personalized cover letter, tell us more about yourself
           and <span className="font-mono underline">resumai</span> will do the
           rest.
@@ -460,11 +460,11 @@ export function WorkExperienceSection() {
   return (
     <SectionWrapper>
       <div className="flex flex-col gap-1 w-full sm:max-w-[30%]">
-        <h3 className="font-mono font-semibold text-neutral-100 text-lg sm:text-xl">
+        <h3 className="font-mono font-semibold text-slate-100 text-lg sm:text-xl">
           Work Experience
         </h3>
 
-        <p className="text-sm text-neutral-300"></p>
+        <p className="text-sm text-slate-300"></p>
       </div>
 
       <div className="flex flex-col flex-1 gap-y-4">
@@ -508,7 +508,7 @@ export function WorkExperienceSection() {
             // default experience display
             <div
               key={exp.experience_id}
-              className="flex flex-col gap-y-2 border rounded-sm border-neutral-500 leading-5 p-3 bg-neutral-900 sm:pl-5 sm:p-4"
+              className="flex flex-col gap-y-2 border rounded-sm border-slate-500 leading-5 p-3 bg-slate-900 sm:pl-5 sm:p-4"
             >
               <div className="flex flex-col">
                 <div className="flex flex-1 justify-between items-center">
@@ -517,22 +517,22 @@ export function WorkExperienceSection() {
                   </h4>
                   <button
                     onClick={() => setEditExperience(exp.experience_id)}
-                    className="text-sm text-neutral-300 h-fit"
+                    className="text-sm text-slate-300 h-fit"
                   >
                     Edit
                   </button>
                 </div>
 
-                <p className="text-sm font-semibold text-neutral-300 sm:text-base">
+                <p className="text-sm font-semibold text-slate-300 sm:text-base">
                   {exp.company}
                 </p>
-                <p className="text-sm font-light text-neutral-400">
+                <p className="text-sm font-light text-slate-400">
                   {exp.start_date} to{" "}
                   {exp.end_date === "current" ? "Present" : exp.end_date}
                 </p>
               </div>
 
-              <p className="text-neutral-200 font-light">{exp.description}</p>
+              <p className="text-slate-200 font-light">{exp.description}</p>
             </div>
           );
         })}

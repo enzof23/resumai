@@ -10,8 +10,8 @@ export default function FormWrapper(props: {
   const signupCTA = { text: "Already registered ?", link: "Log in!" };
 
   return (
-    <div className="flex flex-col p-4 gap-y-2 border-[2px] w-full max-w-md border-neutral-200 bg-neutral-800/50 rounded-lg sm:gap-y-4 sm:py-6 sm:px-5">
-      <h3 className="text-lg font-mono font-medium text-neutral-50 sm:text-2xl">
+    <div className="flex flex-col p-4 gap-y-2 border-[2px] w-full max-w-md border-slate-200 bg-slate-800/50 rounded-lg sm:gap-y-4 sm:py-6 sm:px-5">
+      <h3 className="text-lg font-mono font-medium text-slate-50 sm:text-2xl">
         {props.title}
       </h3>
 
@@ -26,7 +26,7 @@ export default function FormWrapper(props: {
       )}
 
       <div className="flex flex-col items-center gap-x-1 self-center text-sm mt-2 sm:flex-row">
-        <p className="text-neutral-50">
+        <p className="text-slate-50">
           {props.link === "signup" ? loginCTA.text : signupCTA.text}
         </p>
         <Link

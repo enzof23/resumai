@@ -49,7 +49,7 @@ export function FormWrapper(props: FormWrapperProps) {
           props.onEdit && props.onEdit(e, props.experience);
         else props.onSave && props.onSave(e);
       }}
-      className={`flex flex-col gap-y-4 bg-neutral-900 rounded-sm border border-neutral-800 p-3 ${
+      className={`flex flex-col gap-y-4 bg-slate-900 rounded-sm border border-slate-800 p-3 ${
         !props.showForm && "hidden"
       }`}
     >
@@ -60,7 +60,7 @@ export function FormWrapper(props: FormWrapperProps) {
           <button
             type="button"
             onClick={props.onDelete}
-            className="font-mono font-semibold text-neutral-400 underline mr-2"
+            className="font-mono font-semibold text-slate-400 underline mr-2"
             disabled={props.isSaving}
           >
             {props.isDeleting ? (
@@ -80,7 +80,7 @@ export function FormWrapper(props: FormWrapperProps) {
         </button>
         <button
           type="submit"
-          className="grid place-items-center uppercase font-mono font-semibold text-neutral-100 border rounded-sm px-2 min-w-[50px] h-6"
+          className="grid place-items-center uppercase font-mono font-semibold text-slate-100 border rounded-sm px-2 min-w-[50px] h-6"
         >
           {props.isSaving ? <HalfCircleSpinner size={16} /> : "save"}
         </button>

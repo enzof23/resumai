@@ -5,7 +5,7 @@ export function Resumai() {
   return (
     <Link
       href="/"
-      className="flex items-center gap-1 font-mono font-semibold tracking-wide text-lg lg:text-xl bg-gradient-to-b from-neutral-50 to-neutral-50/70 bg-clip-text text-transparent"
+      className="flex items-center gap-1 font-mono font-semibold tracking-wide text-lg lg:text-xl bg-gradient-to-b from-slate-50 to-slate-50/70 bg-clip-text text-transparent"
     >
       <Image src="/resumai-logo.ico" alt="" width={32} height={32} />
       resumai

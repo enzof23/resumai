@@ -19,8 +19,8 @@ export function ConnexionLink(props: NavLinks) {
       href={href}
       className={`group flex items-center justify-between sm:justify-center lg:justify-between
                   py-2 px-3 w-full sm:min-w-[77px] lg:py-3 lg:px-5
-                bg-neutral-800 rounded-full text-sm leading-4 text-neutral-300 font-medium capitalize
-                  transition-all duration-100 md:hover:text-white md:hover:bg-neutral-700`}
+                bg-slate-800 rounded-full text-sm leading-4 text-slate-300 font-medium capitalize
+                  transition-all duration-100 md:hover:text-white md:hover:bg-slate-700`}
     >
       <p className="lg:translate-x-2 lg:group-hover:translate-x-0 transition-all duration-300">
         {text}
@@ -38,10 +38,10 @@ export function NavigationLink(props: NavLinks) {
   const pathname = usePathname();
   const activeRoute = pathname === href;
 
-  const backgroundColor = activeRoute && "bg-neutral-600 lg:bg-neutral-800";
-  const textColor = activeRoute ? "text-white" : "text-neutral-400";
+  const backgroundColor = activeRoute && "bg-slate-600 lg:bg-slate-800";
+  const textColor = activeRoute ? "text-white" : "text-slate-400";
   const LinkHoverEffect =
-    !activeRoute && "md:hover:text-white md:hover:bg-neutral-800";
+    !activeRoute && "md:hover:text-white md:hover:bg-slate-800";
   const TextHoverEffect = !activeRoute && "lg:group-hover:translate-x-0";
 
   return (

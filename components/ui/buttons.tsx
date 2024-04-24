@@ -9,13 +9,13 @@ import { supabaseClient } from "@/supabase/client";
 import { PiSignOutBold } from "react-icons/pi";
 
 const buttonBaseStyle =
-  "grid place-items-center min-w-[75px] rounded-md duration-300 border-[2px] md:hover:text-neutral-50";
+  "grid place-items-center min-w-[75px] rounded-md duration-300 border-[2px] md:hover:text-slate-50";
 
 const linkBaseStyle =
-  "text-xs text-neutral-200 font-medium font-mono tracking-wide w-full px-3 py-2 border-neutral-300 sm:max-w-fit sm:py-1 md:hover:border-neutral-900 md:hover:bg-gradient-to-b md:hover:from-neutral-900 md:hover:to-neutral-800 ";
+  "text-xs text-slate-200 font-medium font-mono tracking-wide w-full px-3 py-2 border-slate-300 sm:max-w-fit sm:py-1 md:hover:border-slate-900 md:hover:bg-gradient-to-b md:hover:from-slate-900 md:hover:to-slate-800 ";
 
 const downloadButtonStyle =
-  "flex-1 p-2 bg-gradient-to-b from-neutral-700 to neutral-800/50 border-neutral-700 md:hover:border-neutral-800 md:hover:from-neutral-500 md:hover:to-neutral-700/50";
+  "flex-1 p-2 bg-gradient-to-b from-slate-700 to neutral-800/50 border-slate-700 md:hover:border-slate-800 md:hover:from-slate-500 md:hover:to-slate-700/50";
 
 export function SignOutButton() {
   const router = useRouter();
@@ -36,10 +36,10 @@ export function SignOutButton() {
       disabled={loader}
       onClick={handleSignOut}
       className={`group lg:self-center flex items-center justify-center gap-1 lg:gap-6
-                    w-full sm:min-w-[100px] p-3 sm:py-2 rounded-full bg-neutral-800
-                    text-sm leading-4 text-neutral-300 font-medium capitalize
+                    w-full sm:min-w-[100px] p-3 sm:py-2 rounded-full bg-slate-800
+                    text-sm leading-4 text-slate-300 font-medium capitalize
                     transition-all duration-200
-                    md:hover:text-white md:hover:bg-neutral-700 lg:hover:px-5
+                    md:hover:text-white md:hover:bg-slate-700 lg:hover:px-5
                    `}
     >
       {loader ? (
@@ -91,7 +91,7 @@ export function AuthButton({
 }) {
   return (
     <button
-      className={`${buttonBaseStyle} capitalize w-full py-2 text-neutral-200 font-medium border-neutral-200 md:hover:border-neutral-800 md:hover:bg-gradient-to-b md:hover:from-neutral-500 md:hover:to-neutral-700/50`}
+      className={`${buttonBaseStyle} capitalize w-full py-2 text-slate-200 font-medium border-slate-200 md:hover:border-slate-800 md:hover:bg-gradient-to-b md:hover:from-slate-500 md:hover:to-slate-700/50`}
       type="submit"
     >
       {loading ? <HalfCircleSpinner size={24} /> : text}

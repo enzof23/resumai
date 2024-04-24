@@ -32,14 +32,14 @@ export default function UnauthMain() {
     return (
       <div className="flex flex-col h-full gap-y-6 md:gap-y-16 md:pt-12">
         <div className="flex flex-col gap-y-1 md:items-center md:text-center">
-          <h1 className="py-2 text-3xl font-inter font-bold tracking-tighter bg-gradient-to-b from-neutral-50 to-neutral-50/50 bg-clip-text text-transparent sm:text-5xl md:text-6xl">
+          <h1 className="py-2 text-3xl font-inter font-bold tracking-tighter bg-gradient-to-b from-slate-50 to-slate-50/50 bg-clip-text text-transparent sm:text-5xl md:text-6xl">
             Get your dream job with{" "}
-            <span className="font-mono underline decoration-neutral-400 decoration-[3px]">
+            <span className="font-mono underline decoration-slate-400 decoration-[3px]">
               resumai
             </span>
           </h1>
 
-          <p className="font-inter text-sm font-light leading-4 text-neutral-400 max-w-[65ch] md:text-base md:leading-5">
+          <p className="font-inter text-sm font-light leading-4 text-slate-400 max-w-[65ch] md:text-base md:leading-5">
             Welcome to the future of cover letters - where AI empowers you to
             create compelling and tailored cover letters for any job offer
             effortlessly
@@ -81,7 +81,7 @@ export default function UnauthMain() {
           <form onSubmit={handleSubmit}>
             <button
               type="submit"
-              className="border uppercase text-sm grid place-items-center py-3 px-6 rounded-md font-semibold text-neutral-200 md:hover:text-neutral-50 border-neutral-500 md:hover:border-neutral-900 bg-gradient-to-b from-neutral-900 to-neutral-800 md:hover:shadow-[0_0_5px_rgba(255,255,255,0.8)] duration-150 disabled:hidden"
+              className="border uppercase text-sm grid place-items-center py-3 px-6 rounded-md font-semibold text-slate-200 md:hover:text-slate-50 border-slate-500 md:hover:border-slate-900 bg-gradient-to-b from-slate-900 to-slate-800 md:hover:shadow-[0_0_5px_rgba(255,255,255,0.8)] duration-150 disabled:hidden"
             >
               Write my cover letter
             </button>
@@ -110,18 +110,18 @@ export default function UnauthMain() {
       </button>
 
       <div className="flex flex-col">
-        <h3 className="text-xl font-medium text-neutral-200 sm:text-3xl">
+        <h3 className="text-xl font-medium text-slate-200 sm:text-3xl">
           Your cover letter for{" "}
-          <span className="font-mono tracking-tight underline capitalize text-neutral-50">
+          <span className="font-mono tracking-tight underline capitalize text-slate-50">
             {jobTitle}
           </span>{" "}
           at{" "}
-          <span className="font-mono tracking-tight underline capitalize text-neutral-50">
+          <span className="font-mono tracking-tight underline capitalize text-slate-50">
             {companyName}
           </span>
         </h3>
 
-        <p className="text-sm text-neutral-500 leading-4">
+        <p className="text-sm text-slate-500 leading-4">
           Note: Resumai is an experimental AI model and may produce incorrect
           results or inaccuracies. We recommend that you give it a thorough read
           and modify it if necessary before sending it to recruiters.
@@ -129,7 +129,7 @@ export default function UnauthMain() {
       </div>
 
       {messages.length === 1 ? (
-        <div className="font-mono bg-neutral-900 px-2 py-2 w-full border-2 rounded-lg sm:px-3 text-neutral-600 border-neutral-600 h-[20ch] animate-pulse">
+        <div className="font-mono bg-slate-900 px-2 py-2 w-full border-2 rounded-lg sm:px-3 text-slate-600 border-slate-600 h-[20ch] animate-pulse">
           Loading...
         </div>
       ) : (

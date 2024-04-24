@@ -138,23 +138,23 @@ export default function Signup() {
           </form>
         </FormWrapper>
       ) : (
-        <div className="flex flex-col gap-y-2 max-w-md border border-neutral-50 rounded-lg p-4 sm:p-6 sm:gap-y-4">
-          <h3 className="text-xl font-inter font-semibold tracking-tighter leading-6 bg-gradient-to-b from-neutral-50 to-neutral-50/80 bg-clip-text text-transparent sm:text-2xl">
+        <div className="flex flex-col gap-y-2 max-w-md border border-slate-50 rounded-lg p-4 sm:p-6 sm:gap-y-4">
+          <h3 className="text-xl font-inter font-semibold tracking-tighter leading-6 bg-gradient-to-b from-slate-50 to-slate-50/80 bg-clip-text text-transparent sm:text-2xl">
             Congratulations, your account has been created successfully !
           </h3>
 
           <div className="flex flex-col gap-y-3 text-sm leading-4 sm:text-base">
-            <p className="max-w-[50ch] text-neutral-200">
+            <p className="max-w-[50ch] text-slate-200">
               In order to verify your account, please go to your inbox{" "}
               <span className="font-mono font-medium underline">{email}</span>{" "}
               and click the link we just sent you.
             </p>
-            <p className="max-w-[50ch] font-semibold text-neutral-300 underline">
+            <p className="max-w-[50ch] font-semibold text-slate-300 underline">
               This link will redirect you to our website to complete your
               profile.
             </p>
 
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-slate-400">
               Remember to check your spam folder !
             </p>
           </div>

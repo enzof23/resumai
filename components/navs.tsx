@@ -55,7 +55,7 @@ function SmallScreen({ auth }: { auth: boolean }) {
   return (
     <nav ref={menuRef} className="fixed top-0 left-0 flex w-full">
       {/* Topbar */}
-      <div className="flex-1 z-50 flex justify-between items-center p-3 bg-neutral-900">
+      <div className="flex-1 z-50 flex justify-between items-center p-3 bg-slate-900">
         <Resumai />
 
         <button
@@ -76,7 +76,7 @@ function SmallScreen({ auth }: { auth: boolean }) {
       {/* Nav Menu */}
       <div
         id="mobile-menu"
-        className={`absolute left-0 w-full ${menuPosition} p-4 z-40 bg-neutral-900 border-b-2 border-neutral-700/50 transition-all duration-300`}
+        className={`absolute left-0 w-full ${menuPosition} p-4 z-40 bg-slate-900 border-b-2 border-slate-700/50 transition-all duration-300`}
       >
         {auth ? (
           <div className="flex flex-col gap-3 w-28">
@@ -104,7 +104,7 @@ function SmallScreen({ auth }: { auth: boolean }) {
 
 function MediumScreen({ auth }: { auth: boolean }) {
   return (
-    <nav className="fixed top-0 left-0 w-full flex items-center justify-between p-3 bg-neutral-900">
+    <nav className="fixed top-0 left-0 w-full flex items-center justify-between p-3 bg-slate-900">
       <Resumai />
 
       {auth ? (
@@ -129,7 +129,7 @@ function LargeScreen({ auth }: { auth: boolean }) {
       id="sidebar"
       className={`fixed top-0 left-0 h-screen hidden lg:flex flex-col ${
         !auth && "justify-between"
-      } gap-8 py-4 px-6 bg-neutral-900 w-56 z-10`}
+      } gap-8 py-4 px-6 bg-slate-900 w-56 z-10`}
     >
       <Resumai />
 
@@ -148,7 +148,7 @@ function LargeScreen({ auth }: { auth: boolean }) {
         </div>
       ) : (
         <div className="flex flex-col self-end gap-4 pb-4">
-          <div className="flex flex-col gap-2 text-neutral-200 text-sm font-medium">
+          <div className="flex flex-col gap-2 text-slate-200 text-sm font-medium">
             <p>Want a more accurate and personnalised result ?</p>
             <p>Sign in or create an account now !</p>
           </div>
